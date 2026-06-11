@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Agustin Sanchez</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .about-hero {
+      padding: 80px 0 96px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .about-hero__grid {
+      display: grid;
+      grid-template-columns: 1fr 480px;
+      gap: 96px;
+      align-items: start;
+    }
+    .about-hero__headline {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 6vw, 88px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 0.95;
+      margin-bottom: 48px;
+    }
+    .about-hero__headline em {
+      font-style: italic;
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 0.85em;
+      color: var(--ink-mid);
+    }
+    .about-section {
+      margin-bottom: 48px;
+    }
+    .about-section__label {
+      font-family: var(--font-display);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .about-section p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--ink-mid);
+      margin-bottom: 14px;
+    }
+    .about-section p:last-child { margin-bottom: 0; }
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: #D9D3C8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: sticky;
+      top: calc(var(--nav-h) + 32px);
+    }
+    .cv-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    .cv-table tr {
+      border-bottom: 1px solid var(--rule);
+    }
+    .cv-table td {
+      padding: 14px 0;
+      font-size: 14px;
+      vertical-align: top;
+    }
+    .cv-table td:first-child {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+      width: 80px;
+      padding-right: 24px;
+      padding-top: 16px;
+    }
+    .cv-table td:nth-child(2) {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--ink);
+      padding-right: 16px;
+    }
+    .cv-table td:last-child {
+      color: var(--ink-mid);
+      font-size: 13px;
+    }
+    .contact-strip {
+      padding: 80px 0;
+      border-top: 1px solid var(--rule);
+    }
+    .contact-strip__inner {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    .contact-strip__headline {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 3vw, 48px);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .contact-strip__links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-end;
+    }
+    .contact-strip__link {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: gap 0.2s var(--ease-out);
+    }
+    .contact-strip__link::after {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 1px;
+      background: var(--ink);
+      transition: width 0.3s var(--ease-out);
+    }
+    .contact-strip__link:hover { gap: 16px; }
+    .contact-strip__link:hover::after { width: 32px; }
+
+    @media (max-width: 1024px) {
+      .about-hero__grid { grid-template-columns: 1fr; }
+      .about-photo { position: static; aspect-ratio: 4/3; }
+      .contact-strip__inner { flex-direction: column; gap: 40px; }
+      .contact-strip__links { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav__logo">
+      <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCADEAJgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k=" alt="Agustin Sanchez" />
+      <span class="nav__name">Agustin Sanchez</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html">Work</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="mailto:agustin@agustinsanchezstudio.com">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="page">
+
+    <section class="about-hero">
+      <div class="container">
+        <div class="about-hero__grid">
+          <div>
+            <h1 class="about-hero__headline">
+              A painter<br>who became<br><em>a designer</em>
+            </h1>
+
+            <div class="about-section">
+              <div class="about-section__label">Background</div>
+              <p>I came to graphic design through a BFA in Painting from Kent State and years managing bars and restaurants. Both taught me things design school doesn't: how to read a room, how to make something with your hands until it's right, how to serve people without losing your perspective.</p>
+              <p>Now I work across brand identity, packaging, editorial, environmental design, and motion. I'm finishing an AAS in Graphic Design at Seattle Central College in June 2025, and I run Agustin Sanchez Studio for freelance work on the side.</p>
+            </div>
+
+            <div class="about-section">
+              <div class="about-section__label">Approach</div>
+              <p>A painter's training gives you a different relationship to composition than someone who learned design first. You think about weight, about where the eye goes and why, about what the surface is actually doing. I bring that into every layout and identity system I build.</p>
+              <p>The hospitality background means I think about the person on the other end of whatever I'm making. A brand is a set of promises. A package is a first impression. A report is someone's case to an audience that has to trust them. Design that forgets those stakes tends to show it.</p>
+            </div>
+
+            <div class="about-section">
+              <div class="about-section__label">Currently</div>
+              <p>Based in Ballard, Seattle. Available for full-time roles and select freelance. I'm most interested in brands that have something real to say — food and beverage, culture, civic, environmental.</p>
+            </div>
+
+            <div class="about-section">
+              <div class="about-section__label">Education and Experience</div>
+              <table class="cv-table">
+                <tr>
+                  <td>2025</td>
+                  <td>AAS Graphic Design</td>
+                  <td>Seattle Central College</td>
+                </tr>
+                <tr>
+                  <td>2024</td>
+                  <td>Design Consultant</td>
+                  <td>Monolithic Power Systems (via freelance)</td>
+                </tr>
+                <tr>
+                  <td>2023</td>
+                  <td>Agustin Sanchez Studio</td>
+                  <td>Freelance brand and design work</td>
+                </tr>
+                <tr>
+                  <td>2009</td>
+                  <td>BFA Painting</td>
+                  <td>Kent State University</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <div class="about-photo">
+              <svg viewBox="0 0 48 48" fill="none" style="opacity:0.18;width:40px;height:40px;">
+                <circle cx="24" cy="16" r="8" stroke="#1A1714" stroke-width="1.5"/>
+                <path d="M8 42C8 33.163 15.163 26 24 26C32.837 26 40 33.163 40 42" stroke="#1A1714" stroke-width="1.5"/>
+              </svg>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-strip">
+      <div class="container">
+        <div class="contact-strip__inner">
+          <h2 class="contact-strip__headline">Let's work together</h2>
+          <div class="contact-strip__links">
+            <a href="mailto:agustin@agustinsanchezstudio.com" class="contact-strip__link">Email me</a>
+            <a href="https://www.linkedin.com/in/agustinsanchez" target="_blank" class="contact-strip__link">LinkedIn</a>
+            <a href="https://www.instagram.com" target="_blank" class="contact-strip__link">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <span class="footer__name">Agustin Sanchez &copy; 2025</span>
+        <div class="footer__links">
+          <a href="https://www.linkedin.com/in/agustinsanchez" target="_blank">LinkedIn</a>
+          <a href="https://www.instagram.com" target="_blank">Instagram</a>
+          <a href="mailto:agustin@agustinsanchezstudio.com">Email</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

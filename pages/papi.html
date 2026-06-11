@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Papi — Agustin Sanchez</title>
+  <style>
+    @font-face { font-family: 'Oracle'; src: url('../fonts/ABCOracleEdu-Thin.woff2') format('woff2'), url('../fonts/ABCOracleEdu-Thin.woff') format('woff'); font-weight: 100; font-style: normal; }
+    @font-face { font-family: 'Oracle'; src: url('../fonts/ABCOracleEdu-ThinItalic.woff2') format('woff2'), url('../fonts/ABCOracleEdu-ThinItalic.woff') format('woff'); font-weight: 100; font-style: italic; }
+    @font-face { font-family: 'Oracle'; src: url('../fonts/ABCOracleEdu-Light.woff2') format('woff2'), url('../fonts/ABCOracleEdu-Light.woff') format('woff'); font-weight: 300; font-style: normal; }
+    @font-face { font-family: 'Oracle'; src: url('../fonts/ABCOracleEdu-LightItalic.woff2') format('woff2'), url('../fonts/ABCOracleEdu-LightItalic.woff') format('woff'); font-weight: 300; font-style: italic; }
+    @font-face { font-family: 'Oracle'; src: url('../fonts/ABCOracleEdu-Regular.woff2') format('woff2'), url('../fonts/ABCOracleEdu-Regular.woff') format('woff'); font-weight: 400; font-style: normal; }
+    @font-face { font-family: 'Oracle'; src: url('../fonts/ABCOracleEdu-RegularItalic.woff2') format('woff2'), url('../fonts/ABCOracleEdu-RegularItalic.woff') format('woff'); font-weight: 400; font-style: italic; }
+    @font-face { font-family: 'Oracle'; src: url('../fonts/ABCOracleEdu-Book.woff2') format('woff2'), url('../fonts/ABCOracleEdu-Book.woff') format('woff'); font-weight: 450; font-style: normal; }
+    @font-face { font-family: 'Oracle'; src: url('../fonts/ABCOracleEdu-BookItalic.woff2') format('woff2'), url('../fonts/ABCOracleEdu-BookItalic.woff') format('woff'); font-weight: 450; font-style: italic; }
+    @font-face { font-family: 'Oracle'; src: url('../fonts/ABCOracleEdu-Medium.woff2') format('woff2'), url('../fonts/ABCOracleEdu-Medium.woff') format('woff'); font-weight: 500; font-style: normal; }
+    @font-face { font-family: 'Oracle'; src: url('../fonts/ABCOracleEdu-MediumItalic.woff2') format('woff2'), url('../fonts/ABCOracleEdu-MediumItalic.woff') format('woff'); font-weight: 500; font-style: italic; }
+    @font-face { font-family: 'Oracle'; src: url('../fonts/ABCOracleEdu-Bold.woff2') format('woff2'), url('../fonts/ABCOracleEdu-Bold.woff') format('woff'); font-weight: 700; font-style: normal; }
+    @font-face { font-family: 'Oracle'; src: url('../fonts/ABCOracleEdu-BoldItalic.woff2') format('woff2'), url('../fonts/ABCOracleEdu-BoldItalic.woff') format('woff'); font-weight: 700; font-style: italic; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    :root {
+      --bg:    #ffffff;
+      --ink:   #111111;
+      --mid:   #444444;
+      --muted: #888888;
+      --rule:  #e0e0e0;
+      --font:  'Oracle', 'Arial Narrow', 'Helvetica Neue', sans-serif;
+      --nav-h: 48px;
+    }
+
+    body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 14px; font-weight: 400; line-height: 1.6; }
+
+    .top-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: var(--nav-h); background: var(--bg); border-bottom: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; padding: 0 28px; }
+    .top-nav__brand { display: flex; align-items: center; gap: 10px; }
+    .top-nav__brand img { height: 20px; width: auto; object-fit: contain; }
+    .top-nav__name { font-size: 13px; font-weight: 500; color: var(--ink); }
+    .top-nav__links { display: flex; align-items: center; gap: 32px; }
+    .top-nav__link { font-size: 12px; color: var(--ink); transition: opacity 0.15s; }
+    .top-nav__link:hover { opacity: 0.5; }
+    .top-nav__connect { font-size: 12px; color: var(--ink); border: 1px solid var(--ink); padding: 6px 14px; cursor: pointer; background: none; font-family: var(--font); transition: opacity 0.15s; }
+    .top-nav__connect:hover { opacity: 0.5; }
+
+    .modal-backdrop { display: none; position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.3); align-items: center; justify-content: center; }
+    .modal-backdrop.open { display: flex; }
+    .modal { position: relative; background: var(--bg); border: 1px solid var(--rule); padding: 40px; width: 100%; max-width: 480px; }
+    .modal__close { position: absolute; top: 16px; right: 20px; font-size: 18px; color: var(--muted); cursor: pointer; background: none; border: none; font-family: var(--font); line-height: 1; padding: 0; }
+    .modal__close:hover { color: var(--ink); }
+    .modal__title { font-size: 18px; font-weight: 400; color: var(--ink); margin-bottom: 8px; }
+    .modal__email { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+    .modal__field { width: 100%; font-family: var(--font); font-size: 12px; color: var(--ink); border: 1px solid var(--rule); padding: 10px 12px; background: var(--bg); outline: none; margin-bottom: 8px; }
+    .modal__field:focus { border-color: var(--ink); }
+    .modal__field::placeholder { color: var(--muted); }
+    textarea.modal__field { height: 120px; resize: vertical; }
+    .modal__row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+    .modal__row .modal__field { margin-bottom: 0; }
+    .modal__send { width: 100%; height: 44px; margin-top: 8px; background: var(--ink); color: var(--bg); border: none; font-family: var(--font); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: opacity 0.15s; }
+    .modal__send:hover { opacity: 0.75; }
+
+    .page { padding-top: var(--nav-h); }
+    .project-header { max-width: 680px; margin: 0 auto; padding: 56px 40px 0; }
+    .project-header__title { font-size: 28px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; line-height: 1.1; color: var(--ink); margin-bottom: 28px; }
+    .project-header__meta { display: flex; gap: 40px; flex-wrap: wrap; padding-bottom: 32px; border-bottom: 1px solid var(--rule); margin-bottom: 40px; }
+    .project-header__meta-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .project-header__meta-value { font-size: 13px; color: var(--ink); }
+
+    .project-content { max-width: 680px; margin: 0 auto; padding: 0 40px 80px; }
+    .project-section { margin-bottom: 64px; }
+    .project-section__label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #111111; margin-bottom: 12px; display: inline-block; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; text-decoration-color: #111111; }
+    .project-section__heading { font-size: 22px; font-weight: 400; color: var(--ink); margin-bottom: 16px; }
+    .project-section p { font-size: 14px; line-height: 1.8; color: var(--mid); margin-bottom: 12px; }
+    .project-section p:last-child { margin-bottom: 0; }
+
+    .img-full { width: 100%; aspect-ratio: 16/9; margin-bottom: 64px; }
+    .img-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 64px; }
+    .img-grid-2 .img-placeholder { aspect-ratio: 4/3; }
+
+    .project-nav { max-width: 680px; margin: 0 auto; padding: 32px 40px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: flex-start; }
+    .project-nav__item--next { text-align: right; }
+    .project-nav__label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; }
+    .project-nav__name { font-size: 14px; font-weight: 500; color: var(--ink); display: block; transition: color 0.2s; }
+    .project-nav__item:hover .project-nav__name { color: var(--muted); }
+
+    .footer { border-top: 1px solid var(--rule); padding: 40px 0; text-align: center; font-size: 11px; color: var(--muted); }
+
+    @media (max-width: 680px) {
+      .project-header, .project-content, .project-nav { padding-left: 24px; padding-right: 24px; }
+      .project-header__meta { gap: 24px; }
+      .img-grid-2 { grid-template-columns: 1fr; }
+      .top-nav__links { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-nav">
+    <a href="../index.html" class="top-nav__brand">
+      <img src="../assets/Initial-Logo.png" alt="AS" />
+      <span class="top-nav__name">Agustin Sanchez</span>
+    </a>
+    <nav class="top-nav__links">
+      <a href="https://www.instagram.com/agustindotsanchez/" target="_blank" class="top-nav__link">Instagram</a>
+      <a href="https://www.linkedin.com/in/agustin---sanchez/" target="_blank" class="top-nav__link">LinkedIn</a>
+      <button class="top-nav__connect" id="connect-btn">Connect</button>
+    </nav>
+  </header>
+
+  <div class="modal-backdrop" id="modal-backdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Get in touch">
+      <button class="modal__close" id="modal-close" aria-label="Close">×</button>
+      <div class="modal__title">Get in touch</div>
+      <div class="modal__email">agustin@agustinsanchezstudio.com</div>
+      <textarea class="modal__field" id="msg" placeholder="Your message"></textarea>
+      <div class="modal__row">
+        <input class="modal__field" id="sender-name" type="text" placeholder="Name" />
+        <input class="modal__field" id="sender-email" type="email" placeholder="Email" />
+      </div>
+      <button class="modal__send" id="modal-send">Send</button>
+    </div>
+  </div>
+
+  <main class="page">
+
+    <div class="project-header">
+      <h1 class="project-header__title">Papi</h1>
+      <div class="project-header__meta">
+        <div class="project-header__meta-item">
+          <div class="project-header__meta-label">Project</div>
+          <div class="project-header__meta-value">Papi Probiotic Soda</div>
+        </div>
+        <div class="project-header__meta-item">
+          <div class="project-header__meta-label">Scope</div>
+          <div class="project-header__meta-value">Brand, Packaging, Environmental</div>
+        </div>
+        <div class="project-header__meta-item">
+          <div class="project-header__meta-label">Year</div>
+          <div class="project-header__meta-value">2024 — 2025</div>
+        </div>
+        <div class="project-header__meta-item">
+          <div class="project-header__meta-label">Category</div>
+          <div class="project-header__meta-value">Cultura Soda</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-content">
+
+      <div class="img-full" style="background:#F5C842;"></div>
+
+      <div class="project-section">
+        <div class="project-section__label">Overview</div>
+        <h2 class="project-section__heading">A soda rooted in Puerto Rican identity</h2>
+        <p>Papi is a probiotic soda brand built from the ground up across multiple school courses, anchored in Puerto Rican food culture. The category descriptor is "cultura soda" — not a heritage brand performing nostalgia, but a contemporary product that wears its roots without apologizing for them or over-explaining them.</p>
+        <p>The project grew from a single-course branding exercise into a full environmental design concept, eventually centering on a piragua cart pop-up activation at Golden Gardens Park in Seattle.</p>
+      </div>
+
+      <div class="img-grid-2">
+        <div class="img-placeholder" style="background:#F5C842;"></div>
+        <div class="img-placeholder" style="background:#E8473A;"></div>
+      </div>
+
+      <div class="project-section">
+        <div class="project-section__label">Packaging</div>
+        <h2 class="project-section__heading">Five flavors, one system</h2>
+        <p>Each of the five SKUs — Piña Colada, Tamarind Citrus, Bilí, Parcha-Ginger, and Guayaba — has a distinct color world within a consistent structural system. The label design is bold enough to read from distance on a cart or cooler, personal enough to hold up to close inspection.</p>
+        <p>The flavor names are left in Spanish, without translation. That's a brand decision, not a packaging constraint. Papi doesn't code-switch for a broader market; it trusts its audience to meet it where it is.</p>
+      </div>
+
+      <div class="img-full" style="background:#E8473A;"></div>
+
+      <div class="project-section">
+        <div class="project-section__label">Environmental Design</div>
+        <h2 class="project-section__heading">The piragua cart as brand anchor</h2>
+        <p>The pop-up activation concept centers on a custom piragua cart at Golden Gardens, Seattle: the piragua (Puerto Rican shaved ice) as the physical expression of the brand, the park as the community context that makes the cultural specificity feel generous rather than exclusive.</p>
+        <p>The environmental design system covers the cart itself, signage, takeaway packaging, and merchandise. Everything is built around the idea that the cart is a destination, not a vendor.</p>
+      </div>
+
+      <div class="project-section">
+        <div class="project-section__label">Outcome</div>
+        <h2 class="project-section__heading">The most personal project in the portfolio</h2>
+        <p>Papi is where my background and my design practice intersect most directly. Puerto Rican identity, hospitality instincts, the attention to how a brand lives in a physical space, the conviction that specificity is a strength rather than a limitation. It's the work I'm most invested in and probably the clearest expression of how I think about what design is actually for.</p>
+      </div>
+
+    </div>
+
+    <nav class="project-nav">
+      <a href="cadence.html" class="project-nav__item">
+        <span class="project-nav__label">Previous Project</span>
+        <span class="project-nav__name">Cadence</span>
+      </a>
+      <a href="final-countdown.html" class="project-nav__item project-nav__item--next">
+        <span class="project-nav__label">Next Project</span>
+        <span class="project-nav__name">Final Countdown</span>
+      </a>
+    </nav>
+
+  </main>
+
+  <footer class="footer">Agustin Sanchez &copy; 2025</footer>
+
+  <script>
+    const backdrop   = document.getElementById('modal-backdrop');
+    const connectBtn = document.getElementById('connect-btn');
+    const closeBtn   = document.getElementById('modal-close');
+    const sendBtn    = document.getElementById('modal-send');
+    function openModal()  { backdrop.classList.add('open'); }
+    function closeModal() { backdrop.classList.remove('open'); }
+    connectBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', function(e) { if (e.target === backdrop) closeModal(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+    sendBtn.addEventListener('click', function() {
+      var msg   = document.getElementById('msg').value;
+      var name  = document.getElementById('sender-name').value;
+      var email = document.getElementById('sender-email').value;
+      var body  = encodeURIComponent((name ? 'From: '+name+'\n' : '')+(email ? 'Email: '+email+'\n\n' : '\n')+msg);
+      window.location.href = 'mailto:agustin@agustinsanchezstudio.com?subject=Portfolio%20Inquiry&body='+body;
+    });
+  </script>
+
+</body>
+</html>
