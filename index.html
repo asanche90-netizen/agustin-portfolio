@@ -436,6 +436,40 @@
     /* ── Bottom border appears only on the last image caption as a closing rule ── */
     .proj-image-caption--last { border-bottom: 1px solid var(--rule); }
 
+    .proj-image-scroll {
+      width: 100%;
+      height: 280px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: var(--rule) transparent;
+      cursor: grab;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .proj-image-scroll:active {
+      cursor: grabbing;
+    }
+
+    .proj-image-scroll img {
+      height: 100%;
+      width: auto;
+      display: block;
+      pointer-events: none;
+    }
+
+    .proj-image-scroll::-webkit-scrollbar {
+      height: 3px;
+    }
+
+    .proj-image-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .proj-image-scroll::-webkit-scrollbar-thumb {
+      background: var(--rule);
+    }
+
     /* ── 3-column grid of logo/type iteration sheets, no individual captions ── */
     .proj-grid-3 {
       display: grid;
@@ -820,7 +854,7 @@
         process: { heading: 'Research and Insight', body: 'The probiotic soda category is crowded and most of it looks the same: clean, minimal, wellness-coded. The opportunity was in specificity. Brands rooted in cultural identity often feel like they have to explain themselves or soften their edges to reach a broader audience. I wanted Papi to feel like it belonged to a specific place and tradition without being exclusionary about it. The visual language draws from Puerto Rican food culture directly. The three flavors, Pineapple Coconut, Lime Bilí, and Tamarind Citrus, each have their own color world within a consistent structural system. The brand trusts that people will be drawn to something that feels genuine rather than something designed for everyone.' },
         outcome: { heading: 'Solution', body: 'A complete brand system from identity through environmental activation. Papi is the project where my background and my design practice overlap most directly. It is also the clearest proof that I can build something from nothing across a sustained timeline and keep the concept coherent from the logo all the way to the cart at the park.' },
         images: [
-          { src: 'images/papi/Papi_Stylescape.png', bg: '#C8373A', caption: 'Brand strategy and mood — cultural foundation', layout: 'full' },
+          { src: 'images/papi/Papi_Stylescape.png', bg: '#C8373A', caption: 'Brand strategy and mood — cultural foundation', layout: 'scroll' },
           { src: 'images/papi/Papi_Packagin-Mockups.png', bg: '#1A1A1A', caption: 'Full lineup — Pineapple Coconut, Lime Bilí, Tamarind Citrus', layout: 'full' },
           { src: 'images/papi/PapiLabel1-01_copy.png', bg: '#C8373A', caption: 'Pineapple Coconut', layout: 'row' },
           { src: 'images/papi/PapiLabel1-02.png', bg: '#2A5C3F', caption: 'Lime Bilí', layout: 'row' },
@@ -974,17 +1008,27 @@
         const hasLayout = p.images.some(function(img) { return img.layout; });
 
         if (hasLayout) {
-          var fullImgs = p.images.filter(function(img) { return img.layout === 'full'; });
+          var fullImgs = p.images.filter(function(img) { return img.layout === 'full' || img.layout === 'scroll'; });
           var gridImgs = p.images.filter(function(img) { return img.layout === 'grid'; });
           var rowImgs = p.images.filter(function(img) { return img.layout === 'row'; });
 
           var html = '';
 
-          // Full width hero
-          fullImgs.forEach(function(img) {
-            var imgContent = img.src ? '<img src="' + img.src + '" alt="' + img.caption + '" style="width:100%;height:100%;object-fit:cover;display:block;" />' : '';
-            html += '<div class="proj-image" style="background:' + img.bg + ';">' + imgContent + '</div>';
-            html += '<div class="proj-image-caption">' + img.caption + '</div>';
+          // Full width hero and scroll images
+          p.images.filter(function(img) { return img.layout === 'full' || img.layout === 'scroll'; }).forEach(function(img) {
+            if (img.layout === 'scroll') {
+              var imgContent = img.src
+                ? '<img src="' + img.src + '" alt="' + img.caption + '" style="height:100%;width:auto;display:block;" />'
+                : '';
+              html += '<div class="proj-image-scroll">' + imgContent + '</div>';
+              html += '<div class="proj-image-caption">' + img.caption + ' — scroll to explore</div>';
+            } else {
+              var imgContent = img.src
+                ? '<img src="' + img.src + '" alt="' + img.caption + '" style="width:100%;height:100%;object-fit:cover;display:block;" />'
+                : '';
+              html += '<div class="proj-image" style="background:' + img.bg + ';">' + imgContent + '</div>';
+              html += '<div class="proj-image-caption">' + img.caption + '</div>';
+            }
           });
 
           // 3-column grid of iteration sheets
@@ -1027,7 +1071,40 @@
           }).join('');
         }
       }
+      if (p.images && p.images.some(function(img) { return img.layout === 'scroll'; })) {
+        initScrollDrag();
+      }
       colC.scrollTop = 0;
+    }
+
+    // ═══════════════════════════════════════════
+    //  SCROLL DRAG
+    //  Enables click-drag to scroll on .proj-image-scroll containers.
+    // ═══════════════════════════════════════════
+    function initScrollDrag() {
+      var scrollEl = document.querySelector('.proj-image-scroll');
+      if (!scrollEl) return;
+
+      var isDown = false;
+      var startX;
+      var scrollLeft;
+
+      scrollEl.addEventListener('mousedown', function(e) {
+        isDown = true;
+        startX = e.pageX - scrollEl.offsetLeft;
+        scrollLeft = scrollEl.scrollLeft;
+      });
+
+      scrollEl.addEventListener('mouseleave', function() { isDown = false; });
+      scrollEl.addEventListener('mouseup', function() { isDown = false; });
+
+      scrollEl.addEventListener('mousemove', function(e) {
+        if (!isDown) return;
+        e.preventDefault();
+        var x = e.pageX - scrollEl.offsetLeft;
+        var walk = (x - startX) * 1.5;
+        scrollEl.scrollLeft = scrollLeft - walk;
+      });
     }
 
     // ═══════════════════════════════════════════
