@@ -820,9 +820,15 @@
         process: { heading: 'Research and Insight', body: 'The probiotic soda category is crowded and most of it looks the same: clean, minimal, wellness-coded. The opportunity was in specificity. Brands rooted in cultural identity often feel like they have to explain themselves or soften their edges to reach a broader audience. I wanted Papi to feel like it belonged to a specific place and tradition without being exclusionary about it. The visual language draws from Puerto Rican food culture directly. The three flavors, Pineapple Coconut, Lime Bilí, and Tamarind Citrus, each have their own color world within a consistent structural system. The brand trusts that people will be drawn to something that feels genuine rather than something designed for everyone.' },
         outcome: { heading: 'Solution', body: 'A complete brand system from identity through environmental activation. Papi is the project where my background and my design practice overlap most directly. It is also the clearest proof that I can build something from nothing across a sustained timeline and keep the concept coherent from the logo all the way to the cart at the park.' },
         images: [
-          { src: 'images/papi/Cans.jpeg', bg: '#F5C842', caption: 'Papi Probiotic Soda — can lineup' },
-          { bg: '#E8473A', caption: 'Full flavor lineup' },
-          { bg: '#F5C842', caption: 'Piragua cart activation concept' }
+          { src: 'images/papi/Papi_Stylescape.png', bg: '#C8373A', caption: 'Brand strategy and mood — cultural foundation', layout: 'full' },
+          { src: 'images/papi/Papi_Packagin-Mockups.png', bg: '#1A1A1A', caption: 'Full lineup — Pineapple Coconut, Lime Bilí, Tamarind Citrus', layout: 'full' },
+          { src: 'images/papi/PapiLabel1-01_copy.png', bg: '#C8373A', caption: 'Pineapple Coconut', layout: 'row' },
+          { src: 'images/papi/PapiLabel1-02.png', bg: '#2A5C3F', caption: 'Lime Bilí', layout: 'row' },
+          { src: 'images/papi/PapiLabel1-03.png', bg: '#C47A3A', caption: 'Tamarind Citrus', layout: 'row' },
+          { src: 'images/papi/Papi_Cup-Red.png', bg: '#1A1A1A', caption: 'Pineapple Coconut cup', layout: 'row' },
+          { src: 'images/papi/Papi_Cup-Green.png', bg: '#1A1A1A', caption: 'Lime Bilí cup', layout: 'row' },
+          { src: 'images/papi/Papi_Cup-Orange.png', bg: '#1A1A1A', caption: 'Tamarind Citrus cup', layout: 'row' },
+          { src: 'images/papi/Papi_Full_Layout.png', bg: '#e8e8e8', caption: 'Piragua cart activation — Golden Gardens, Seattle', layout: 'full' }
         ],
         category: 'design'
       },
@@ -992,17 +998,21 @@
             html += '<div class="proj-image-caption">Logo and type explorations</div>';
           }
 
-          // 3-column row of kit mockups with individual captions
+          // 3-column rows of images, chunked in groups of three
           if (rowImgs.length) {
-            html += '<div class="proj-row-3">';
-            rowImgs.forEach(function(img) {
-              var imgContent = img.src ? '<img src="' + img.src + '" alt="' + img.caption + '" style="width:100%;height:100%;object-fit:cover;display:block;" />' : '';
-              html += '<div class="proj-row-3__item">' +
-                '<div class="proj-row-3__img" style="background:' + img.bg + ';">' + imgContent + '</div>' +
-                '<div class="proj-row-3__caption">' + img.caption + '</div>' +
-                '</div>';
-            });
-            html += '</div>';
+            var chunkSize = 3;
+            for (var ri = 0; ri < rowImgs.length; ri += chunkSize) {
+              var chunk = rowImgs.slice(ri, ri + chunkSize);
+              html += '<div class="proj-row-3">';
+              chunk.forEach(function(img) {
+                var imgContent = img.src ? '<img src="' + img.src + '" alt="' + img.caption + '" style="width:100%;height:100%;object-fit:cover;display:block;" />' : '';
+                html += '<div class="proj-row-3__item">' +
+                  '<div class="proj-row-3__img" style="background:' + img.bg + ';">' + imgContent + '</div>' +
+                  '<div class="proj-row-3__caption">' + img.caption + '</div>' +
+                  '</div>';
+              });
+              html += '</div>';
+            }
           }
 
           colC.innerHTML = html;
