@@ -318,6 +318,23 @@
     /* ── The actual meta value below each label ── */
     .proj-meta-value { font-size: 13px; color: var(--ink); }
 
+    .proj-link {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: 0.06em;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      margin-bottom: 24px;
+      transition: opacity 0.15s;
+    }
+
+    .proj-link:hover {
+      opacity: 0.5;
+    }
+
     /* ── Each content section (Overview, Process, Outcome) — spacing between sections ── */
     .proj-section { margin-bottom: 28px; }
 
@@ -738,6 +755,7 @@
       'mps': {
         title: 'Monolithic Power Systems ESG Report',
         type: 'ESG Report & Layout Design',
+        link: { label: 'View full report', url: 'https://www.monolithicpower.com/media/mps_cms_document/e/s/esg-2026.pdf' },
         meta: { Client: 'Monolithic Power Systems', Scope: 'Layout Design, ESG Report', Year: '2024', Pages: '44' },
         overview: { heading: 'Problem to Solve', body: 'How do you take a semiconductor company\'s dense sustainability data and make it feel considered, readable, and visually aligned to a brand refresh, in under two weeks, working under a creative director and senior designer?' },
         intro: { heading: 'Overview', body: 'Monolithic Power Systems needed a 44-page ESG report designed and produced on a tight timeline. I came in as a freelance designer under a senior designer and creative director, responsible for layout and data visualization across the full document.' },
@@ -922,6 +940,7 @@
       colB.innerHTML =
         '<div class="proj-title">' + p.title + '</div>' +
         '<div class="proj-type">' + p.type + '</div>' +
+        (p.link ? '<a href="' + p.link.url + '" target="_blank" class="proj-link">' + p.link.label + ' →</a>' : '') +
         '<div class="proj-meta">' + metaHTML + '</div>' +
         renderSection(p.overview) +
         (p.intro ? renderSection(p.intro) : '') +
